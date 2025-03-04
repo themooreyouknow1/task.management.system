@@ -27,8 +27,19 @@ public class TaskService {
         Optional<Task> optionalTask = taskRepository.findById(id);
         if (optionalTask.isPresent()) {
             Task task = optionalTask.get();
+            if (updatedTask.getTitle() != null) {
+                task.setTitle(updatedTask.getTitle());
+            }
+            if (updatedTask.getDescription() != null) {
+                task.setDescription(updatedTask.getDescription());
+            }
+            if (updatedTask.getStatus() != null) {
+                task.setStatus(updatedTask.getStatus());
+            }
+            return taskRepository.save(task);
+        }else{
+            return null;
         }
-        return taskRepository.save(updatedTask);
     }
     public void deleteTaskById(Long id) {
         taskRepository.deleteById(id);
